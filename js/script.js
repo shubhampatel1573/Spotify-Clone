@@ -86,7 +86,7 @@ async function displayAlbums() {
               <path d="M9.5 11.1998V12.8002C9.5 14.3195 9.5 15.0791 9.95576 15.3862C10.4115 15.6932 11.0348 15.3535 12.2815 14.6741L13.7497 13.8738C15.2499 13.0562 16 12.6474 16 12C16 11.3526 15.2499 10.9438 13.7497 10.1262L12.2815 9.32594C11.0348 8.6465 10.4115 8.30678 9.95576 8.61382C9.5 8.92086 9.5 9.6805 9.5 11.1998Z" fill="currentColor" />
             </svg>
           </div>
-          <img src="/songs/${e.name}/cover.jpg" alt="Album Cover">
+          <img src="https://raw.githubusercontent.com/shubhampatel1573/Spotify/main/songs/${e.name}/cover.jpg">
           <h2>${e.name}</h2>
         </div>`)
       .join("");
@@ -153,21 +153,31 @@ async function main() {
     document.querySelector(".left").style.left = "-120%";
   });
 
-  // Previous song functionality
-  document.querySelector(".previous").addEventListener("click", () => {
-    const index = songs.indexOf(currentSong.src.split("/").pop());
-    if (index > 0) {
-      playMusic(songs[index - 1]);
-    }
-  });
 
-  // Next song functionality
-  document.querySelector(".next").addEventListener("click", () => {
-    const index = songs.indexOf(currentSong.src.split("/").pop());
-    if (index < songs.length - 1) {
-      playMusic(songs[index + 1]);
+
+  // add an event listener to previous  
+
+  document.querySelector(".previous").addEventListener("click", () => {
+    let index = songs.indexOf(currentSong.src.split("/").splice(-1)[0])
+    if ((index - 1) >= 0) {
+      playMusic(songs[index - 1])
     }
-  });
+  })
+
+  // add an event listener to next 
+
+  document.querySelector(".next").addEventListener("click", () => {
+
+
+    let index = songs.indexOf(currentSong.src.split("/").splice(-1)[0])
+    if ((index + 1) < songs.length) {
+      playMusic(songs[index + 1])
+    }
+  })
+
+
+
+
 
   // Volume control
   document.querySelector(".range input").addEventListener("input", (e) => {
